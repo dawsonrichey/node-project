@@ -24,6 +24,13 @@ app.get('/messages', (req, res) => {
     })
 })
 
+app.get('/messages:user', (req, res) => {
+    var user = req.params.user
+    Message.find({name: user}, (err, messages) => {
+        res.send(messages)
+    })
+})
+
 app.post('/messages', async (req, res) => {
 
     try {
@@ -55,7 +62,7 @@ io.on('connection', (socket) => {
     console.log('a user connected')
 })
 
-mongoose.connect(dbUrl, { useMongoClient: true }, (err) => {
+mongoose.connect(dbUrl, { useMongoClient: true }, (err)  => {
     console.log('mongo db connection', err)
 })
 
